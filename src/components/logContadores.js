@@ -3,8 +3,8 @@ import React from 'react';
 const LogCounters = ({ logs }) => {
   // Calcular los contadores
   const totalLogs = logs.length;
-  const errorLogs = logs.filter(log => log.level === 'error').length;
-  const successLogs = logs.filter(log => log.level === 'info').length;
+  const errorLogs = logs.filter(log => log.status === 'error').length;
+  const successLogs = logs.filter(log => log.status === 'success').length;
 
   // Estilos
   const containerStyle = {

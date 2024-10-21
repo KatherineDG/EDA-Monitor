@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/nav';
 import getLogs from '../api/getLogs';  // Importa la función desde tu archivo API
+import { ToastContainer, toast } from 'react-toastify';
+import WebSocketComponent from '../components/WebSocketComponent ';
 
 const LogsPage = () => {
   const [logs, setLogs] = useState([]);
@@ -24,8 +26,9 @@ const LogsPage = () => {
 
   return (
     <div>
+      <WebSocketComponent />
       <Navbar />
-
+      <ToastContainer />
       <div style={{ fontFamily: 'Arial, sans-serif', maxWidth: '800px', margin: '0 auto', padding: '20px' }}>
         <h1 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '20px' }}>Logs</h1>
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>

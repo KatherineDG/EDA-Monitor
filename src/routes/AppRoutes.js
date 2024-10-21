@@ -8,9 +8,9 @@ function AppRoutes() {
   return (
     <Routes>
         <Route path="/logs" element={<LogsPage />} />
-        <Route path="/logs/reservas" element={<LogsTopicPage fetchLogs={() => getLogsToTopic("reserva")} title="Logs - Tópico Reserva" />} />
-        <Route path="/logs/backoffice" element={<LogsTopicPage fetchLogs={() => getLogsToTopic("backoffice")} title="Logs - Tópico Back Office" />} />
-        <Route path="/logs/gateway" element={<LogsTopicPage fetchLogs={() => getLogsToTopic("gatewaydepagos")} title="Logs - Tópico Gateway de Pagos" />} />
+        <Route path="/logs/reservas" element={<LogsTopicPage fetchLogs={() => getLogsToTopic("reserva")} title="Reserva" topico="reserva"/>} />
+        <Route path="/logs/backoffice" element={<LogsTopicPage fetchLogs={() => getLogsToTopic("backoffice")} title="Back Office" topico="backoffice"/>} />
+        <Route path="/logs/gateway" element={<LogsTopicPage fetchLogs={() => getLogsToTopic("gatewaydepagos")} title="Gateway de Pagos" topico="gatewaydepagos" />} />
     </Routes>
   );
 }
