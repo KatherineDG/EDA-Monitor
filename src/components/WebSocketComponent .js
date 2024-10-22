@@ -8,7 +8,7 @@ const WebSocketComponent = () => {
 
     useEffect(() => {
         // Crear una nueva conexión WebSocket
-        socket = new WebSocket('ws://localhost:3031');
+        socket = new WebSocket('ws://eda-daii-production-9f47.up.railway.app');
 
         // Manejar el evento de conexión abierta
         socket.onopen = () => {

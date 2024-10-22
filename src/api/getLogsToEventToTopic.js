@@ -9,7 +9,7 @@ const getLogsToEventToTopic = async (event_name, topico) => {
         mode: 'cors',
     };
 
-    const response = await fetch(`http://localhost:3030/api/logs/topic/${topico}/event/${event_name}`, requestOptions);
+    const response = await fetch(`https://eda-daii-production-9f47.up.railway.app/api/logs/topic/${topico}/event/${event_name}`, requestOptions);
      // Intentar parsear la respuesta como JSON
     const data = await response.json();
     return data;
