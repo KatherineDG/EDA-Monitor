@@ -14,7 +14,7 @@ const postConnectionId = async (connectionId) => {
         mode: 'cors',
     };
 
-    const response = await fetch('http://localhost:5000/api/connection-id/front', requestOptions);
+    const response = await fetch('https://eda-daii-production-9f47.up.railway.app/api/connection-id/front', requestOptions);
     let jsonData = await response.json();
     return jsonData;
 }
