@@ -8,7 +8,7 @@ const WebSocketComponent = () => {
 
     useEffect(() => {
         // Crear una nueva conexión WebSocket
-        socket = new WebSocket('wss://eda-daii-production-9f47.up.railway.app');
+        socket = new WebSocket('wss://eda-monitor-production.up.railway.app/ws');
 
         // Manejar el evento de conexión abierta
         socket.onopen = () => {
