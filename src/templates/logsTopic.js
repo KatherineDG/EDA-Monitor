@@ -81,7 +81,8 @@ const LogsTopicPage = ({ fetchLogs, title, topico }) => {
 
   return (
     <div>
-      <WebSocketComponent/>
+      <WebSocketComponent />
+      {/* <WebSocketComponent/> */}
       <Navbar />
       <ToastContainer />
       <div style={{ fontFamily: 'Arial, sans-serif', maxWidth: '800px', margin: '0 auto', padding: '20px' }}>
