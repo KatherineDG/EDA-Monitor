@@ -1,35 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; // Asegúrate de incluir el CSS
+import 'react-toastify/dist/ReactToastify.css';
 import postConnectionId from '../api/postConnectionId';
 
 const WebSocketComponent = () => {
     const [message, setMessage] = useState('');
-    let socket;
+    const socketRef = useRef(null); // Ref para mantener la referencia del socket
+    const heartbeatIntervalRef = useRef(null); // Ref para almacenar el intervalo del heartbeat
+    const reconnectTimeoutRef = useRef(null); // Ref para almacenar el timeout de reconexión
 
-
-    useEffect(() => {
-        // Crear una nueva conexión WebSocket
-        socket = new WebSocket('wss://25zb4cxwg1.execute-api.us-east-1.amazonaws.com/dev/');
+    // Función para establecer la conexión WebSocket
+    const connectWebSocket = () => {
+        socketRef.current = new WebSocket('wss://25zb4cxwg1.execute-api.us-east-1.amazonaws.com/dev/');
 
         // Manejar el evento de conexión abierta
-        socket.onopen = () => {
+        socketRef.current.onopen = () => {
             console.log('Conexión WebSocket abierta');
-            socket.send(JSON.stringify({ message: 'Conexión establecida con el monitoreo en tiempo real' }));
+            socketRef.current.send(JSON.stringify({ message: 'Conexión establecida con el monitoreo en tiempo real' }));
+            iniciarHeartbeat();
         };
 
         // Manejar el evento de mensaje recibido
-        socket.onmessage = async (message) => {
+        socketRef.current.onmessage = async (message) => {
             const data = JSON.parse(message.data);
             console.log('Mensaje recibido:', data);
-          
-            if (data.message === 'Forbidden') {
-                console.log('Evento omitido:', data);
 
-                const connectionId = data.connectionId; // Asegúrate de que esta propiedad exista
+            if (data.message === 'Forbidden') {
+                const connectionId = data.connectionId;
 
                 if (connectionId) {
-                    console.log('Connection ID encontrado:', connectionId)
                     try {
                         const response = await postConnectionId(connectionId);
                         console.log('Connection ID guardado:', response);
@@ -39,47 +38,89 @@ const WebSocketComponent = () => {
                 } else {
                     console.warn('No se encontró el connectionId en el mensaje.');
                 }
-
-              }
+            }
             if (data.message === 'actualizacion') {
-              // Aquí manejas el evento 'actualizacion' y actualizas el estado, UI, etc.
-              console.log('Recibida actualización:', data);
-              toast.info('Nueva actualización disponible toque para refrescar', {
-                autoClose: 5000,
-                onClick: () => {
-                    window.location.reload(); // Recargar la página al hacer clic en el toast
-                },
-            });
-            // Llamada al callback para notificar de la actualización
+                toast.info('Nueva actualización disponible toque para refrescar', {
+                    autoClose: 5000,
+                    onClick: () => window.location.reload()
+                });
             }
         };
 
         // Manejar el evento de cierre de conexión
-        socket.onclose = () => {
+        socketRef.current.onclose = () => {
             console.log('Conexión WebSocket cerrada');
+            detenerHeartbeat();
+            reconectarWebSocket();
         };
 
         // Manejar errores
-        socket.onerror = (error) => {
+        socketRef.current.onerror = (error) => {
             console.error('Error en WebSocket', error);
         };
+    };
+
+    // Función para iniciar el envío de heartbeat
+    const iniciarHeartbeat = () => {
+        detenerHeartbeat(); // Detener el intervalo anterior, si existe
+        heartbeatIntervalRef.current = setInterval(() => {
+            if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
+                socketRef.current.send(JSON.stringify({ action: 'heartbeat' }));
+                console.log('Heartbeat enviado');
+            }
+        }, 300000); // Intervalo de 5 minutos
+    };
+
+    // Función para detener el envío de heartbeat
+    const detenerHeartbeat = () => {
+        if (heartbeatIntervalRef.current) {
+            clearInterval(heartbeatIntervalRef.current);
+            heartbeatIntervalRef.current = null;
+        }
+    };
+
+    // Función para reconectar el WebSocket si se cierra
+    const reconectarWebSocket = () => {
+        if (!reconnectTimeoutRef.current) {
+            reconnectTimeoutRef.current = setTimeout(() => {
+                console.log('Intentando reconectar...');
+                connectWebSocket();
+                reconnectTimeoutRef.current = null;
+            }, 5000); // Intentar reconectar después de 5 segundos
+        }
+    };
+
+    // Establecer conexión WebSocket al montar el componente
+    useEffect(() => {
+        connectWebSocket();
 
         // Limpiar al desmontar el componente
         return () => {
-            socket.close();
+            if (socketRef.current) {
+                socketRef.current.close();
+            }
+            detenerHeartbeat();
+            if (reconnectTimeoutRef.current) {
+                clearTimeout(reconnectTimeoutRef.current);
+            }
         };
     }, []);
 
     const sendMessage = () => {
-        if (socket.readyState === WebSocket.OPEN) {
-            socket.send(message);
+        if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
+            socketRef.current.send(message);
             setMessage('');
         } else {
             console.error('WebSocket no está abierto');
         }
     };
 
-    return null;
+    return (
+        <div>
+            <ToastContainer />
+            {/* Tu código adicional aquí */}
+        </div>
+    );
 };
 
 export default WebSocketComponent;
