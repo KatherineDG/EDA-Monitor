@@ -9,7 +9,7 @@ const getLogs = async () => {
         mode: 'cors',
     };
 
-    const response = await fetch(`https://eda-daii-production-9f47.up.railway.app/api/logs`, requestOptions);
+    const response = await fetch(`http://ec2-3-89-66-61.compute-1.amazonaws.com:5000/api/logs`, requestOptions);
      // Intentar parsear la respuesta como JSON
     const data = await response.json();
     return data;
