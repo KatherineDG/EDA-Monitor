@@ -14,7 +14,7 @@ const postConnectionId = async (connectionId) => {
         mode: 'cors',
     };
 
-    const response = await fetch('http://ec2-3-89-66-61.compute-1.amazonaws.com:5000/api/connection-id/front', requestOptions);
+    const response = await fetch('http://ec2-54-90-250-142.compute-1.amazonaws.com:5000/api/connection-id/front', requestOptions);
     let jsonData = await response.json();
     return jsonData;
 }

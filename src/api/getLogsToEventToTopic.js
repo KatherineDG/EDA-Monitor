@@ -9,7 +9,7 @@ const getLogsToEventToTopic = async (event_name, topico) => {
         mode: 'cors',
     };
 
-    const response = await fetch(`http://ec2-3-89-66-61.compute-1.amazonaws.com:5000/api/logs/topic/${topico}/event/${event_name}`, requestOptions);
+    const response = await fetch(`http://ec2-54-90-250-142.compute-1.amazonaws.com:5000/api/logs/topic/${topico}/event/${event_name}`, requestOptions);
      // Intentar parsear la respuesta como JSON
     const data = await response.json();
     return data;
