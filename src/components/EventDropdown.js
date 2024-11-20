@@ -14,11 +14,11 @@ const EventDropdown = ({ eventTypes, onSelectEvent }) => {
 
   return (
     <div style={{ position: 'relative', display: 'inline-block' }}>
-      <button onClick={toggleDropdown} style={{ backgroundColor: '#3498db', color: 'white', border: 'none', padding: '5px 10px', cursor: 'pointer' }}>
+      <button onClick={toggleDropdown} style={{ backgroundColor: '#6665DD', color: 'white', border: 'none', borderRadius: '5px', padding: '5px 10px', cursor: 'pointer', marginLeft: '10px' }}>
         Seleccionar Evento ▼
       </button>
       {isOpen && (
-        <ul style={{ position: 'absolute', backgroundColor: 'white', border: '1px solid #ddd', margin: 0, padding: '5px', listStyle: 'none', zIndex: 1 }}>
+        <ul style={{ position: 'absolute', backgroundColor: 'white', color: 'black', border: '1px solid #ddd', marginLeft: '10px', padding: '5px', listStyle: 'none', zIndex: 1 }}>
           {eventTypes.map((eventType) => (
             <li key={eventType} onClick={() => handleEventSelect(eventType)} style={{ padding: '5px 10px', cursor: 'pointer', borderBottom: '1px solid #ddd' }}>
               {eventType}

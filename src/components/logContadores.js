@@ -11,7 +11,7 @@ const LogCounters = ({ logs }) => {
     display: 'flex',
     justifyContent: 'space-around',
     padding: '20px',
-    backgroundColor: '#f0f0f0',
+    backgroundColor: 'black',
     borderRadius: '8px',
     marginBottom: '20px',
   };
@@ -36,15 +36,15 @@ const LogCounters = ({ logs }) => {
 
   return (
     <div style={containerStyle}>
-      <div style={{...counterStyle, backgroundColor: '#e0e0e0'}}>
+      <div style={{...counterStyle, backgroundColor: '#6665DD'}}>
         <div style={labelStyle}>Total Logs</div>
         <div style={valueStyle}>{totalLogs}</div>
       </div>
-      <div style={{...counterStyle, backgroundColor: '#ffcccb'}}>
+      <div style={{...counterStyle, backgroundColor: '#DB5461'}}>
         <div style={labelStyle}>Logs de Error</div>
         <div style={valueStyle}>{errorLogs}</div>
       </div>
-      <div style={{...counterStyle, backgroundColor: '#90ee90'}}>
+      <div style={{...counterStyle, backgroundColor: '#7AC74F'}}>
         <div style={labelStyle}>Logs de Éxito</div>
         <div style={valueStyle}>{successLogs}</div>
       </div>

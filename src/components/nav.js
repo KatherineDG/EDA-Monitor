@@ -7,7 +7,7 @@ const Navbar = () => {
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '1rem',
-    backgroundColor: '#2c3e50',
+    backgroundColor: 'black',
     color: 'white',
   };
 
@@ -34,13 +34,15 @@ const Navbar = () => {
 
   const primaryButtonStyle = {
     ...buttonStyle,
-    backgroundColor: '#3498db',
+    backgroundColor: '#8884FF',
+    fontWeight: 'bold',
     color: 'white',
   };
 
   const logoutButtonStyle = {
     ...buttonStyle,
-    backgroundColor: '#e74c3c',
+    backgroundColor: '#5D576B',
+    fontWeight: 'bold',
     color: 'white',
   };
 

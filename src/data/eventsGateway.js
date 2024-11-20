@@ -1,1 +1,9 @@
-export const eventsGateway=['Todos', 'transaccionIniciada', 'transaccionPendiente', 'transaccionValida', 'transaccionFallida', 'reembolsoIniciado', 'reembolsoValido', 'facturaClienteGenerada', 'facturaAdministradorGenerada', 'notaCreditoGenerada']
+export const eventsGateway=[
+    'Todos',
+    'initiated-transaction',
+    'valid-transaction',
+    'failed-transaction',
+    'generated-customer-invoice',
+    'generated-administrator-invoice',
+    'valid-reimbursement',
+    'credit-note-generated']
