@@ -8,6 +8,7 @@ import { eventsGateway } from '../data/eventsGateway';
 import getLogsToEventToTopic from '../api/getLogsToEventToTopic';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import WebSocketComponent from '../components/WebSocketComponent ';
 
 const LogsTopicPage = ({ fetchLogs, title, topico }) => {
   const [logs, setLogs] = useState([]);
@@ -58,6 +59,7 @@ const LogsTopicPage = ({ fetchLogs, title, topico }) => {
 
   return (
     <div style={{ fontFamily: "'Roboto', sans-serif" }}>
+      <WebSocketComponent />
       <Navbar />
       <ToastContainer />
       <div style={{ fontFamily: 'Arial, sans-serif', maxWidth: '800px', margin: '0 auto', padding: '20px' }}>
